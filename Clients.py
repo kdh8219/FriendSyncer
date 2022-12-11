@@ -54,8 +54,9 @@ class LambdaClient(HackClient):
             return uuid.replace("-", "")
         friends: list[MinecraftAccount] = []
         try:
-            with json.load(open(f"{self.minecraftDirectory}/lambda/friends.json")) as file:
-                for friend in file["firends"]:
+            with open(f"{self.minecraftDirectory}/lambda/friends.json") as file:
+                file = json.load(file)
+                for friend in file["Friends"]:
                     friends.append(MinecraftAccount(
                         id=friend["name"],
                         uuid=removeDash(friend["uuid"])
@@ -106,7 +107,8 @@ class RusherHack(HackClient):
         friends: list[MinecraftAccount] = []
         try:
             mojnagAPI = MojangAPI()
-            with json.load(open(f"{self.minecraftDirectory}/rusherhack/friends.json")) as file:
+            with open(f"{self.minecraftDirectory}/rusherhack/friends.json") as file:
+                file = json.load(file)
                 for friend in file:
                     uuid = mojnagAPI.get_uuid(friend['name'])
                     if uuid:
@@ -160,7 +162,8 @@ class Future(HackClient):
             return False
         try:
             mojnagAPI = MojangAPI()
-            with json.load(open(f"{userprofile}/Future/friends.json")) as file:
+            with open(f"{userprofile}/Future/friends.json") as file:
+                file = json.load(file)
                 for _ in file:
                     for friend in _:
                         uuid = mojnagAPI.get_uuid(friend['name'])
@@ -200,7 +203,8 @@ class Abyss(HackClient):
             return uuid.replace("-", "")
         friends: list[MinecraftAccount] = []
         try:
-            with json.load(open(f"{self.minecraftDirectory}/Abyss/FriendList.json")) as file:
+            with open(f"{self.minecraftDirectory}/Abyss/FriendList.json") as file:
+                file = json.load(file)
                 for friend_id in file.keys:
                     friends.append(MinecraftAccount(
                         id=friend_id,
